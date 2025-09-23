@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1 class="text-center">Категорії</h1>
+<a href="{% url 'categories:add_category' %}" 
+    class="btn btn-success mb-3">Додати категорію</a>
+    
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Назва</th>
+      <th scope="col">Фото</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for category in categories %}
+    <tr>
+      <th scope="row">{{ category.id }}</th>
+      <td>{{ category.name }}</td>
+      <td><img src="{{ category.image.url }}" alt="{{ category.name }}" width="100"></td>
+      <td><a href="#" class="btn btn-primary">Переглянути</a></td>
+    <tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

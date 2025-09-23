@@ -47,3 +47,19 @@ pip install -r requirements.txt
 cd djangomvt
 py manage.py runserver 4892
 ```
+
+## Додаємо модель і робимо міграції
+```
+pip install Pillow
+py manage.py makemigrations categories
+py manage.py migrate
+```
+
+## Додаю superuser
+```
+python manage.py createsuperuser
+py manage.py createsuperuser
+admin
+123456
+py manage.py runserver 4892
+```
