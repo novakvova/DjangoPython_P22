@@ -20,7 +20,10 @@
       <th scope="row">{{ category.id }}</th>
       <td>{{ category.name }}</td>
       <td><img src="{{ category.image.url }}" alt="{{ category.name }}" width="100"></td>
-      <td><a href="#" class="btn btn-primary">Переглянути</a></td>
+      <td>
+        <a href="{% url 'categories:edit_category' category.id %}" class="btn btn-warning me-1">Edit</a>
+        <a href="{% url 'categories:delete_category' category.id %}" class="btn btn-danger">Delete</a>
+      </td>
     <tr>
     {% endfor %}
   </tbody>

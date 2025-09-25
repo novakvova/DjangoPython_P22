@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1 class="text-center">Edit Category: {{ category.name }}</h1>
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <div class="d-flex flex-row">
+    <button type="submit" class="btn btn-primary me-2">Save Changes</button>
+    <a href="{% url 'categories:show_categories' %}" class="btn btn-secondary">Cancel</a>
+  </div>
+</form>
+{% endblock %}

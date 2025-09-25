@@ -1,6 +1,20 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1 class="text-center">Додати категорію</h1>
+
+<h1 class="text-center">Додати категорію</h1>
+
+<div class = "row">
+    <div class = "col-md-6 offset-md-3">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+        
+          <div class="d-flex flex-row">
+            <button type="submit" class="btn btn-light">Create Category</button>
+          </div>
+        </form>
+    </div>
+</div>
     
 {% endblock %}
