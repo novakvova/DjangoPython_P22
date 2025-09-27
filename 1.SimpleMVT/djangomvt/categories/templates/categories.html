@@ -10,6 +10,9 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Назва</th>
+      <th class="text-center" scope="col">Slug</th>
+      <th class="text-center" scope="col">Створено</th>
+      <th class="text-center" scope="col">Оновлено</th>
       <th scope="col">Фото</th>
       <th scope="col"></th>
     </tr>
@@ -19,6 +22,9 @@
     <tr>
       <th scope="row">{{ category.id }}</th>
       <td>{{ category.name }}</td>
+      <td class="text-center"><span class="badge bg-secondary">{{ category.slug }}</span></td>
+      <td class="text-muted text-center">{{ category.created_at|date:"d.m.Y H:i" }}</td>
+      <td class="text-muted text-center">{{ category.updated_at|date:"d.m.Y H:i" }}</td>
       <td><img src="{{ category.image.url }}" alt="{{ category.name }}" width="100"></td>
       <td>
         <a href="{% url 'categories:edit_category' category.id %}" class="btn btn-warning me-1">Edit</a>
