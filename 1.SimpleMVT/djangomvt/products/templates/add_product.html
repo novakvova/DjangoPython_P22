@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1 class="text-center">Додати продукт</h1>
+
+<div class = "row">
+    <div class = "col-md-6 offset-md-3">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class ="mb-3">
+            {{ form.as_p }}
+          </div>
+
+          <h5>Фото товару</h5>
+          {{ formset.management_form }}
+          {% for f in formset %}
+              <div class="mb-3">
+                  {{ f.as_p }}
+              </div>
+          {% endfor %}
+
+          <div class="d-flex flex-row">
+            <button type="submit" class="btn btn-light">Create Product</button>
+          </div>
+        </form>
+    </div>
+</div>
+    
+{% endblock %}

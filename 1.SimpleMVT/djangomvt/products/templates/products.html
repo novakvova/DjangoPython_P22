@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<h1 class="text-center">Продукти</h1>
+<a href="{% url 'products:add_product' %}" 
+    class="btn btn-success mb-3">Додати продукт</a>
+    
+<table class="table">
+  <thead>
+    <tr>
+        <th scope="col">Фото</th>
+        <th scope="col">Назва</th>
+        <th scope="col">Категорія</th>
+        <th class="text-center" scope="col">Slug</th>
+        <th scope="col">Ціна</th>
+        <th scope="col">Дія</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product  in products %}
+    <tr>
+       <td>
+          {% with main_image=product.images.all|dictsort:"priority"|first %}
+              {% if main_image %}
+                  <img src="{{ main_image.image.url }}" width="80" alt="{{ product.name }}" class="product-img">
+              {% else %}
+                  <img src="{% static 'images/no-image.png' %}" width="80" alt="No image" class="product-img">
+              {% endif %}
+          {% endwith %}
+      </td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.category.name }}</td>
+      <td class="text-center"><span class="badge bg-secondary">{{ product.slug }}</span></td>
+      <td class="price">{{ product.price }} ₴</td>
+      <td>
+
+      </td>
+    <tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
