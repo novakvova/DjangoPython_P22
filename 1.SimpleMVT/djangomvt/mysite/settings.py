@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     # 'categories',
     'categories.apps.CategoriesConfig', # додаємо наш додаток categories
     'users.apps.UsersConfig', # додаємо наш додаток users
+    'products.apps.ProductsConfig', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

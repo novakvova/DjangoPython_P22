@@ -63,3 +63,10 @@ admin
 123456
 py manage.py runserver 4892
 ```
+
+## Додаємо продукти і фото до них
+```
+py manage.py startapp products
+py manage.py makemigrations products
+py manage.py migrate
+```
