@@ -1,30 +1,103 @@
 {% extends "layout.html" %}
+{% load widget_tweaks %}
 
 {% block content %}
 
 <h1 class="text-center">Додати продукт</h1>
 
 <div class = "row">
-    <div class = "col-md-6 offset-md-3">
-        <form method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <div class ="mb-3">
-            {{ form.as_p }}
-          </div>
+    <div class="col-md-8 offset-md-2">
+        <form method="POST" enctype="multipart/form-data" id="product-form">
+            {% csrf_token %}
 
-          <h5>Фото товару</h5>
-          {{ formset.management_form }}
-          {% for f in formset %}
-              <div class="mb-3">
-                  {{ f.as_p }}
-              </div>
-          {% endfor %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        {{ form.category.label_tag }}
+                        {{ form.category|add_class:"form-select" }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.name.label_tag }}
+                        {{ form.name|add_class:"form-control" }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.description.label_tag }}
+                        {{ form.description|add_class:"form-control" }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.price.label_tag }}
+                        {{ form.price|add_class:"form-control" }}
+                    </div>
+                </div>
 
-          <div class="d-flex flex-row">
-            <button type="submit" class="btn btn-light">Create Product</button>
-          </div>
+                <div class="col-md-6">
+                    <h5 class="mt-0">Фото товару</h5>
+                    <input type="file" name="images" id="product-images" multiple class="form-control mb-3">
+                </div>
+            </div>
+
+            <div class="d-flex flex-row">
+                <button type="submit" class="btn btn-success mt-3">Створити продукт</button>
+            </div>
         </form>
     </div>
 </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    FilePond.registerPlugin(FilePondPluginImagePreview);
+
+    const inputElement = document.querySelector('#product-images');
+
+    const pond = FilePond.create(inputElement, {
+        allowMultiple: true,
+        allowReorder: true,
+        allowImagePreview: true,
+        imagePreviewHeight: 150,
+        server: {
+            process: {
+                url: "{% url 'products:upload_temp_image' %}",
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                onload: (response) => JSON.parse(response).file_id,
+                onerror: (response) => console.log("Error:", response)
+            },
+            revert: (uniqueFileId, load, error) => {
+                fetch("{% url 'products:delete_temp_image' %}", {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ file_id: uniqueFileId })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if(res.status === "ok") load();
+                    else error(res.error || "Error deleting file");
+                })
+                .catch(err => error("Error deleting file"));
+            }
+        }
+    });
+
+    const form = document.querySelector('#product-form');
+    form.addEventListener('submit', function() {
+        
+
+        pond.getFiles().forEach((file, index) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'images';
+            input.value = file.serverId;
+            input.dataset.priority = index;
+            form.appendChild(input);
+        });
+    });
+});
+</script>
     
 {% endblock %}
