@@ -70,3 +70,53 @@ def delete_temp_image(request):
                 return JsonResponse({"error": "File not found"}, status=404)
         return JsonResponse({"error": "No file_id provided"}, status=400)
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+def delete_product(request, product_id):
+    try:
+        product = Product.objects.get(id=product_id)
+
+        for img in product.images.all():
+            if img.image:
+                img.image.delete(save=False)
+            img.delete()
+
+        product.delete()
+
+    except Product.DoesNotExist:
+        pass
+
+    return redirect('products:show_products')
+
+
+def edit_product(request, product_id):
+    try:
+        product = Product.objects.get(id=product_id)
+    except Product.DoesNotExist:
+        return redirect('products:show_products')
+
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=product)
+        images_ids = request.POST.getlist('images')
+
+        if form.is_valid():
+            product = form.save()
+
+            for img in product.images.all():
+                if img.image:
+                    img.image.delete(save=False)
+                img.delete()
+
+            for idx, img_id in enumerate(images_ids):
+                try:
+                    img = ProductImage.objects.get(id=img_id)
+                    img.product = product
+                    img.priority = idx
+                    img.save()
+                except ProductImage.DoesNotExist:
+                    pass
+
+            return redirect("products:show_products")
+    else:
+        form = ProductForm(instance=product)
+
+    return render(request, "edit_product.html", {"form": form, "product": product})
