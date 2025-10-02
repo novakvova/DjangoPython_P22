@@ -25,3 +25,15 @@ py manage.py runserver 4099
 pip install psycopg2-binary
 py manage.py migrate
 ```
+
+## Add CustomUser
+```
+py manage.py startapp users
+
+pip install -r requirements.txt
+
+py manage.py makemigrations users
+py manage.py migrate
+
+py manage.py runserver 4099
+```
