@@ -12,7 +12,10 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
     "@tailwindcss/vite": "^4.1.14",
+    "antd": "^5.27.4",
+    "antd-img-crop": "^4.25.0",
     "axios": "^1.12.2",
+    "object-to-formdata": "^4.5.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-easy-crop": "^5.5.3",
