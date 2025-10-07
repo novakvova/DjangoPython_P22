@@ -30,7 +30,9 @@ export const userService = createApi({
                     body: formData
                 };
             },
+            invalidatesTags: ["Users"]
         }),
+
     }),
 });
 

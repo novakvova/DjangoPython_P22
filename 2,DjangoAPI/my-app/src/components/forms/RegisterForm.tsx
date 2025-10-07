@@ -27,6 +27,7 @@ const RegisterForm: React.FC = () => {
         };
 
         try {
+            console.log("Send Data Server", userRegister);
             const result = await register(userRegister).unwrap();
             console.log(result);
             dispatch(setTokens(result));
