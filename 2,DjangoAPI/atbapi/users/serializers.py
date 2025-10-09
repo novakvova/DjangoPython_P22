@@ -7,6 +7,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 from django.conf import settings
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -77,7 +79,20 @@ class PasswordResetRequestSerializer(serializers.Serializer):
 
         send_mail(
             subject="Відновлення паролю",
-            message=f"Перейдіть за посиланням для скидання паролю: {reset_link}",
+            message=f"",
+            fail_silently=False,
+            html_message=f"""
+                <html>
+                <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+                    <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px;">
+                        <h2 style="color: #635985;">Відновлення паролю</h2>
+                        <p>Щоб змінити пароль, перейдіть за посиланням:</p>
+                        <p><a href="{reset_link}" style="background-color:#443C68; color:#fff; padding:10px 20px; text-decoration:none; border-radius:4px;">Змінити пароль</a></p>
+                        <p>Якщо ви не запитували відновлення, просто ігноруйте цей лист.</p>
+                    </div>
+                </body>
+                </html>
+            """,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[email],
         )
@@ -104,3 +119,17 @@ class SetNewPasswordSerializer(serializers.Serializer):
         user = self.validated_data['user']
         user.set_password(self.validated_data['new_password'])
         user.save()
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        token['id'] = user.id
+        token['username'] = user.username
+        token['email'] = user.email
+        # token['phone'] = user.phone if user.phone else None
+        token['image'] = user.image_small.url if user.image_small else None
+        token['date_joined'] = user.date_joined.strftime('%Y-%m-%d %H:%M:%S')
+
+        return token
