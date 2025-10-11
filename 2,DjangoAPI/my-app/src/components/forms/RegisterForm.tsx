@@ -6,6 +6,7 @@ import ImageUploader from "../uploaders/ImageUploader.tsx";
 import {useDispatch} from "react-redux";
 import {setTokens} from "../../store/authSlice.ts";
 import {useNavigate} from "react-router";
+import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 
 const RegisterForm: React.FC = () => {
     const [form] = Form.useForm();
@@ -14,6 +15,7 @@ const RegisterForm: React.FC = () => {
     const [imageError, setImageError] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { executeRecaptcha } = useGoogleReCaptcha();
 
     const onFinish: FormProps<IUserRegister>["onFinish"] = async (values) => {
         if (fileList.length === 0 || !fileList[0]?.originFileObj) {
@@ -21,9 +23,14 @@ const RegisterForm: React.FC = () => {
             return;
         }
 
+        if (!executeRecaptcha) return;
+
+        const token = await executeRecaptcha('register');
+
         const userRegister: IUserRegister = {
             ...values,
             image: fileList[0].originFileObj,
+            recaptcha_token: token
         };
 
         try {

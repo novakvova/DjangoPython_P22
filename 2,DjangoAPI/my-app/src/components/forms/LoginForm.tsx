@@ -4,16 +4,22 @@ import {useDispatch} from "react-redux";
 import {setTokens} from "../../store/authSlice.ts";
 import {Link, useNavigate} from "react-router";
 import type {ILoginRequest} from "../../types/users/ILoginRequest.ts";
+import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 
 const LoginForm: React.FC = () => {
     const [form] = Form.useForm();
     const [login, { isLoading }] = useLoginMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { executeRecaptcha } = useGoogleReCaptcha();
 
     const onFinish: FormProps<ILoginRequest>["onFinish"] = async (values) => {
         try {
-            const result = await login(values).unwrap();
+            if (!executeRecaptcha) return;
+
+            const token = await executeRecaptcha('login');
+
+            const result = await login({...values, recaptcha_token: token}).unwrap();
             console.log(result);
             dispatch(setTokens(result));
             navigate('/');
@@ -31,14 +37,13 @@ const LoginForm: React.FC = () => {
             style={{ width: "100%" }}
         >
             <Form.Item
-                label="Email"
-                name="email"
+                label="User name"
+                name="username"
                 rules={[
-                    { required: true, message: "Please enter your email" },
-                    { type: "email", message: "Invalid email format" },
+                    { required: true, message: "Please enter your email" }
                 ]}
             >
-                <Input placeholder="johnsmith@example.com" />
+                <Input placeholder="Хустон" />
             </Form.Item>
 
             <Form.Item

@@ -5,4 +5,5 @@ export interface IUserRegister {
     email: string;
     password: string;
     image?: File | null;
+    recaptcha_token?: string;
 }

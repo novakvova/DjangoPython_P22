@@ -1,4 +1,5 @@
 export interface ILoginRequest {
-    email: string;
+    username: string;
     password: string;
+    recaptcha_token?: string;
 }
