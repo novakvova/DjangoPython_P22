@@ -37,3 +37,16 @@ py manage.py migrate
 
 py manage.py runserver 4099
 ```
+
+## Working TOPIC - reddit.com
+
+py manage.py startapp topics
+
+py manage.py makemigrations topics
+
+py manage.py migrate
+
+python manage.py shell
+
+from topics.seed_topics import run
+run()

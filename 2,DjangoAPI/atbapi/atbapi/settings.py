@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'atbapi',
     'drf_spectacular',
     'users',
-    "corsheaders"
+    "corsheaders",
+    "topics"
 ]
 
 REST_FRAMEWORK = {
