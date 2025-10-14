@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/', include('users.urls')),
+    path('api/', include('topics.urls')),
 ]
 
 urlpatterns += static(settings.IMAGES_URL, document_root=settings.IMAGES_ROOT)

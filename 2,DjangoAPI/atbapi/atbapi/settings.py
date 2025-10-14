@@ -92,12 +92,21 @@ CORS_ALLOWED_ORIGINS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'HOST': 'ep-lingering-river-agujhtt0-pooler.c-2.eu-central-1.aws.neon.tech',
+    #     'NAME': 'neondb',
+    #     'USER': 'neondb_owner',
+    #     'PASSWORD': 'npg_0sy9cvMGVWri',
+    #     'PORT': '5432'
+    # }
+
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'ep-lingering-river-agujhtt0-pooler.c-2.eu-central-1.aws.neon.tech',
-        'NAME': 'neondb',
-        'USER': 'neondb_owner',
-        'PASSWORD': 'npg_0sy9cvMGVWri',
+        'HOST': 'localhost',
+        'NAME': 'p22django',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
         'PORT': '5432'
     }
 }

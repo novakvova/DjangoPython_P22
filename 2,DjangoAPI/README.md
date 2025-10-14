@@ -50,3 +50,8 @@ python manage.py shell
 
 from topics.seed_topics import run
 run()
+
+exit()
+
+
+py manage.py runserver 4099
