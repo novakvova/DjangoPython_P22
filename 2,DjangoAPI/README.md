@@ -39,7 +39,7 @@ py manage.py runserver 4099
 ```
 
 ## Working TOPIC - reddit.com
-
+```
 py manage.py startapp topics
 
 py manage.py makemigrations topics
@@ -55,3 +55,10 @@ exit()
 
 
 py manage.py runserver 4099
+```
+## Filtes data
+
+```
+pip install django-filter
+
+```
