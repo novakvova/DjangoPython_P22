@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.custom-scroll {
+    overflow-y: auto;
+}
+
+.custom-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #b0b0b0; /* сірий */
+    border-radius: 3px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #9a9a9a;
+}
+
+.custom-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #b0b0b0 transparent;
+}
+
+.dark .custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #555;
+}
+.dark .custom-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+.dark .custom-scroll {
+    scrollbar-color: #555 transparent;
+}
