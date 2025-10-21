@@ -10,6 +10,8 @@ py -m venv .venv
 python.exe -m pip install --upgrade pip
 py -m pip install django
 
+pip freeze > requirements.txt
+
 python -m django --version
 
 django-admin startproject atbapi
