@@ -7,6 +7,7 @@ import type {IUserRegister} from "../types/users/IUserRegister.ts";
 import type {IResetPasswordRequest} from "../types/users/IResetPasswordRequest.ts";
 import type {ILoginRequest} from "../types/users/ILoginRequest.ts";
 import type {IResetPasswordConfirm} from "../types/users/IResetPasswordConfirm.ts";
+import type {IGoogleLoginRequest} from "../types/users/IGoogleLoginRequest";
 
 export const userService = createApi({
     reducerPath: 'userService',
@@ -67,7 +68,15 @@ export const userService = createApi({
                     body: formData,
                 }
             }
-        })
+        }),
+        loginByGoogle: builder.mutation<ILoginResponse, IGoogleLoginRequest>({
+            query: (credentials) => ({
+                url: 'google-login/',
+                method: 'POST',
+                body: credentials
+            }),
+            invalidatesTags: ["Users"]
+        }),
     }),
 });
 
@@ -77,4 +86,5 @@ export const {
     useLoginMutation,
     useResetPasswordRequestMutation,
     useResetPasswordMutation,
+    useLoginByGoogleMutation,
 } = userService;

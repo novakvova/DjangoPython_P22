@@ -12,7 +12,7 @@ interface Props {
     setImageError?: (value: boolean) => void;
 }
 
-const ImageUploader: React.FC<Props> = ({
+const ImagesUploader: React.FC<Props> = ({
                                                          fileList,
                                                          setFileList,
                                                          imageError,
@@ -78,4 +78,4 @@ const ImageUploader: React.FC<Props> = ({
     );
 };
 
-export default ImageUploader;
+export default ImagesUploader;

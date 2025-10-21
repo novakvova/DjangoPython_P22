@@ -50,8 +50,6 @@ const InputField: React.FC<InputFieldProps> = ({
         setErrorMessage(error)
     }
 
-    console.log("Error message", errorMessage);
-
     return (
         <div className={`w-full mb-5 ${otherStyles}`}>
             <label
@@ -114,7 +112,8 @@ const InputField: React.FC<InputFieldProps> = ({
             </div>
 
             {errorMessage && (
-                <div className="p-1 text-sm text-red-800 rounded-lg dark:text-red-400" role="alert">
+                <div className="p-4 mb-4 text-sm text-red-800 rounded-lg dark:text-red-400"
+                     role="alert">
                     <span className="font-medium">{errorMessage}</span>
                 </div>
             )}
@@ -123,4 +122,3 @@ const InputField: React.FC<InputFieldProps> = ({
 };
 
 export default InputField;
- 

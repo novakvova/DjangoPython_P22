@@ -7,6 +7,7 @@ import {BrowserRouter} from "react-router";
 import {GoogleReCaptchaProvider} from "react-google-recaptcha-v3";
 import {APP_ENV} from "./env";
 import {ThemeProvider} from "./context/ThemeContext";
+import {GoogleOAuthProvider} from "@react-oauth/google";
 
 createRoot(document.getElementById('root')!).render(
     <>
@@ -14,7 +15,9 @@ createRoot(document.getElementById('root')!).render(
             <Provider store={store}>
                 <GoogleReCaptchaProvider reCaptchaKey={APP_ENV.RECAPTCHA_KEY}>
                     <BrowserRouter>
-                        <App/>
+                        <GoogleOAuthProvider clientId={APP_ENV.GOOGLE_AUTH_KEY}>
+                            <App/>
+                        </GoogleOAuthProvider>
                     </BrowserRouter>
                 </GoogleReCaptchaProvider>
             </Provider>
