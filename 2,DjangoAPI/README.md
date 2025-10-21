@@ -64,3 +64,10 @@ py manage.py runserver 4099
 pip install django-filter
 
 ```
+
+## Working Posts
+```
+py manage.py startapp posts
+
+py manage.py makemigrations posts
+```
