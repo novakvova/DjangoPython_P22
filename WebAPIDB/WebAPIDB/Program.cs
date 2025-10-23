@@ -12,6 +12,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 app.UseSwagger();
@@ -22,5 +24,7 @@ app.UseSwaggerUI();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.Seed();
 
 app.Run();
