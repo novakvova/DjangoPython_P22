@@ -1,0 +1,26 @@
+[
+  {
+    "Email": "admin@example.com",
+    "FirstName": "Адмiн",
+    "LastName": "Системний",
+    "Image": "https://thispersondoesnotexist.com",
+    "Password": "Admin123!",
+    "Roles": [ "Admin" ]
+  },
+  {
+    "Email": "ivan@example.com",
+    "FirstName": "Іван",
+    "LastName": "Борисюк",
+    "Image": "https://thispersondoesnotexist.com",
+    "Password": "bb123456",
+    "Roles": [ "User" ]
+  },
+  {
+    "Email": "olena@example.com",
+    "FirstName": "Олена",
+    "LastName": "Шаглінська",
+    "Image": "https://thispersondoesnotexist.com",
+    "Password": "password",
+    "Roles": [ "User" ]
+  }
+]
