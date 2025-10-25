@@ -25,5 +25,6 @@ public class TopicEntity
     [ForeignKey(nameof(Parent))]
     public long ? ParentId { get; set; }
     public TopicEntity? Parent { get; set; }
-    public ICollection<TopicEntity>? Children { get; set; }
+    public virtual ICollection<TopicEntity>? Children { get; set; }
+    public virtual ICollection<PostEntity>? Posts { get; set; }
 }
